@@ -1,0 +1,42 @@
+.orbs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.orbs button {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition:
+    transform 0.5s,
+    box-shadow 0.5s;
+}
+/* Bigger, invisible hit area so the small orbs are easy to tap. */
+.orbs button::before {
+  content: '';
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+}
+.orbs button:hover,
+.orbs button[aria-pressed='true'] {
+  transform: scale(1.4);
+  box-shadow: 0 0 14px var(--g);
+}
+.orbs button[aria-pressed='true'] {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 760px) {
+  .orbs {
+    gap: 8px;
+  }
+  .orbs button {
+    width: 10px;
+    height: 10px;
+  }
+}

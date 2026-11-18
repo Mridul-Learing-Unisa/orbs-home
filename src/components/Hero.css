@@ -1,0 +1,40 @@
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 9vh;
+}
+.hero h1 {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(3.2rem, 12.5vw, 12rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  max-width: 11ch;
+  padding-bottom: 0.1em;
+  background: linear-gradient(180deg, var(--ow) 30%, color-mix(in srgb, var(--c1) 55%, var(--ow)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rise 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    filter: blur(30px);
+    letter-spacing: -0.02em;
+  }
+}
+.hero p {
+  max-width: 34ch;
+  margin: 34px 0 0 auto;
+  color: var(--sl);
+  font-size: 1.15rem;
+}
+
+@media (max-width: 760px) {
+  .hero p {
+    margin-left: 0;
+  }
+}

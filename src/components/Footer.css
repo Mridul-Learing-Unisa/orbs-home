@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 28px var(--gutter) 40px;
+  color: var(--sl);
+  font-size: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.footer a {
+  color: var(--sl);
+  text-decoration: none;
+}
+.footer a:hover {
+  color: var(--ow);
+}

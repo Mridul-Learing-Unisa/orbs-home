@@ -1,0 +1,41 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow-y: auto;
+  background:
+    radial-gradient(60vmax 45vmax at 50% 0%, color-mix(in srgb, var(--c1) 42%, transparent), transparent 70%),
+    radial-gradient(50vmax 40vmax at 10% 100%, color-mix(in srgb, var(--c3) 38%, transparent), transparent 70%),
+    radial-gradient(50vmax 40vmax at 92% 75%, color-mix(in srgb, var(--c2) 36%, transparent), transparent 70%),
+    rgba(14, 14, 16, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: calc(28px + env(safe-area-inset-top, 0px)) clamp(20px, 6vw, 96px) 80px;
+  outline: 0;
+}
+.overlay[hidden] {
+  display: none;
+}
+
+.overlay-back {
+  color: var(--sl);
+  text-decoration: none;
+}
+.overlay-back:hover {
+  color: var(--ow);
+}
+
+.overlay h2 {
+  margin: 40px 0 20px;
+  max-width: none;
+}
+.overlay h3 {
+  font-weight: 500;
+  font-size: 1.05rem;
+  margin: 34px 0 6px;
+}
+.overlay p {
+  color: #b8b8bb;
+  max-width: 68ch;
+  margin: 0 0 10px;
+}

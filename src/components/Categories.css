@@ -1,0 +1,256 @@
+.categories {
+  display: grid;
+  /* Row 1: heading (right column only). Row 2: sidebar beside the product grid. */
+  grid-template-columns: var(--side-w) 1fr;
+  grid-template-rows: auto auto;
+  column-gap: var(--col-gap);
+  row-gap: 0;
+  padding: 14vh var(--gutter);
+  min-height: 100vh;
+  /* Rows hug their content rather than stretching to the min-height. */
+  align-content: start;
+  /* Lets the heading size itself from this section's width (see .categories-title).
+     The container sits here, not on .categories-main: a size container gets layout
+     containment, which would stop .categories-main from being a subgrid. */
+  container-type: inline-size;
+  --side-w: 260px;
+  --col-gap: clamp(24px, 4vw, 64px);
+}
+
+/* Shares the product grid's row, so its top and bottom edges line up with the
+   grid exactly; it scrolls with the grid so they stay lined up. */
+.categories aside {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-90px);
+  opacity: 0;
+  transition:
+    transform 1.1s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 1s;
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(23, 23, 25, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  /* Hidden: don't let invisible buttons catch clicks. */
+  pointer-events: none;
+}
+/* Same transition both ways: slides in from the left, slides back out to the left. */
+.categories.in aside {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+.categories aside .mi {
+  margin-bottom: 14px;
+}
+/* The list fills the sidebar's height, sharing any spare room evenly between
+   the categories so the last divider sits on the grid's bottom edge. */
+.categories aside > div:last-child {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.categories aside button {
+  flex: 1;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 8px 0;
+  color: var(--sl);
+  font-size: 1rem;
+  transition: 0.3s;
+}
+.categories aside button:hover {
+  color: var(--ow);
+  padding-left: 8px;
+}
+.categories aside button[aria-current='true'] {
+  color: var(--ow);
+  padding-left: 8px;
+  text-shadow: 0 0 18px var(--c3);
+}
+
+/* Spans both rows and passes them down (subgrid): the heading takes row 1 and
+   the product grid row 2, the same row as the sidebar. */
+.categories-main {
+  --main-w: calc(100cqi - var(--side-w) - var(--col-gap));
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: grid;
+  grid-template-rows: subgrid;
+  min-width: 0;
+}
+
+/* Always one line, scaled so the longest name fits, so the grid below
+   starts at the same height for every category. */
+.categories-title {
+  /* Bottom padding keeps descenders (g, y) clear of the overflow clip;
+     the margin is reduced by the same amount so spacing is unchanged. */
+  margin: 0 0 calc(34px - 0.15em);
+  padding-bottom: 0.15em;
+  max-width: none;
+  font-size: clamp(1.75rem, calc(var(--main-w) * 0.085), 5rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.product {
+  background: rgba(23, 23, 25, 0.82);
+  padding: 22px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  animation: product-in 0.7s both;
+}
+@keyframes product-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+/* Spotlight that follows the pointer; --x/--y are set from Categories.tsx. */
+.product::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    180px circle at var(--x, 50%) var(--y, 0),
+    color-mix(in srgb, var(--c3) 30%, transparent),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.product:hover::before {
+  opacity: 1;
+}
+.product svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  max-height: 120px;
+  color: var(--ow);
+  position: relative;
+  transition: transform 0.6s;
+}
+.product:hover svg {
+  transform: scale(1.08);
+}
+.product span {
+  font-size: 0.88rem;
+  line-height: 1.4;
+  position: relative;
+  /* Room for two lines on every card so rows are the same height in every category. */
+  min-height: 2.8em;
+}
+
+/* Fills the free slots of the grid; spans however many there are. */
+.product--more {
+  grid-column: span var(--span, 1);
+  color: var(--ow);
+  text-decoration: none;
+  background:
+    radial-gradient(120% 140% at 0% 100%, color-mix(in srgb, var(--c3) 16%, transparent), transparent 60%),
+    rgba(23, 23, 25, 0.82);
+}
+.product--more svg {
+  color: var(--sl);
+  transition:
+    transform 0.6s,
+    color 0.4s;
+}
+.product--more:hover svg {
+  color: var(--ow);
+}
+.product--more span {
+  color: var(--sl);
+}
+/* Always exactly two lines: "Not listed?" / "Talk to us →". */
+.product--more b {
+  display: block;
+  font-weight: 500;
+  color: var(--ow);
+  white-space: nowrap;
+}
+.product--more:focus-visible {
+  outline-offset: -4px;
+}
+
+/* Narrower screens: 2 × 4 instead of 4 × 2. The grid is then much taller than
+   the sidebar, so the sidebar lines up with the grid's top edge instead of
+   stretching to its full height. */
+@media (max-width: 1024px) {
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .product--more {
+    grid-column: span min(var(--span, 1), 2);
+  }
+  .categories aside {
+    align-self: start;
+  }
+  .categories aside button {
+    flex: none;
+    padding: 11px 0;
+  }
+}
+
+/* Phones: one column, with the categories as a scrolling row of tabs on top. */
+@media (max-width: 760px) {
+  .categories {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+  .categories aside,
+  .categories-main {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .categories-main {
+    --main-w: 100cqi;
+    display: block;
+  }
+  .categories aside {
+    overflow-x: auto;
+    padding: 14px;
+  }
+  .categories aside > div:last-child {
+    flex-direction: row;
+    gap: 16px;
+  }
+  .categories aside .mi {
+    display: none;
+  }
+  .categories aside button {
+    width: auto;
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .categories aside {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

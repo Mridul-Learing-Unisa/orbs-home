@@ -1,0 +1,25 @@
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--c3) var(--v, 0%), var(--gr) var(--v, 0%));
+  outline: 0;
+  cursor: pointer;
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ow);
+  box-shadow: 0 0 14px var(--c3);
+}
+.range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ow);
+}

@@ -1,0 +1,210 @@
+/* Scrolls sideways on narrow screens. A scrolling box clips everything outside it,
+   so the padding is large enough to hold the panel's whole glow (it reaches ~140px
+   below and ~80px above the panel), and the negative margins give that space back
+   so the page layout is unchanged. Too little room here shows as a hard edge. */
+.panel-scroll {
+  overflow-x: auto;
+  padding: 110px var(--gutter) 180px;
+  margin: -110px 0 -140px;
+}
+
+.panel-edge {
+  min-width: 1180px;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 12px;
+  border-radius: 26px;
+  border: 1px solid var(--gr);
+  background: linear-gradient(#232325, #141416);
+  box-shadow:
+    0 0 0 1px #000,
+    0 30px 140px -30px color-mix(in srgb, var(--c1) 80%, transparent),
+    0 0 90px -40px color-mix(in srgb, var(--c3) 90%, transparent);
+  transition: box-shadow 1.6s;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 0.85fr)
+    minmax(0, 0.75fr) minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 10px;
+  min-height: 320px;
+  padding: 10px;
+  border-radius: 16px;
+  background: radial-gradient(90% 120% at 20% 0, color-mix(in srgb, var(--c1) 18%, #0e0e10), #0b0b0d);
+}
+
+.tile {
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+}
+.tile h4 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sl);
+}
+
+/* Scene */
+.scene-name {
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.scene-line {
+  margin-top: -8px;
+  color: var(--sl);
+  font-size: 0.85rem;
+}
+.scene-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: auto;
+}
+.scene-buttons button {
+  padding: 9px 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  font-size: 0.74rem;
+  transition: 0.3s;
+}
+.scene-buttons button:hover {
+  border-color: var(--c3);
+}
+.scene-buttons button[aria-pressed='true'] {
+  background: var(--ow);
+  color: #111;
+  border-color: var(--ow);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--c3) 70%, transparent);
+}
+
+/* Lights */
+.light-row {
+  display: grid;
+  grid-template-columns: 62px 1fr 32px;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+}
+.light-row span:last-child {
+  text-align: right;
+  color: var(--sl);
+}
+
+/* Climate */
+.big-temp {
+  font-size: 3rem;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  text-align: center;
+}
+.climate-status {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+}
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+.stepper--flush {
+  margin-top: 0;
+}
+.stepper button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--gr);
+  background: transparent;
+  font-size: 1.3rem;
+}
+.stepper button:hover {
+  border-color: var(--ow);
+}
+
+/* Blinds */
+.window {
+  flex: 1;
+  border: 1px solid var(--gr);
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(var(--c3), var(--c1));
+  position: relative;
+}
+.blind {
+  position: absolute;
+  inset: 0 0 auto 0;
+  background: repeating-linear-gradient(#2d2d30 0 6px, #1b1b1d 6px 8px);
+  transition: height 0.5s;
+}
+
+/* Sound */
+.eq {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  height: 38px;
+}
+.eq i {
+  flex: 1;
+  background: var(--c3);
+  height: 8%;
+  border-radius: 2px;
+  transition: height 0.4s;
+}
+.eq.on i {
+  animation: eq 1s ease-in-out infinite alternate;
+}
+.eq i:nth-child(2n) {
+  animation-duration: 0.7s;
+}
+.eq i:nth-child(3n) {
+  animation-duration: 1.3s;
+}
+@keyframes eq {
+  to {
+    height: 100%;
+  }
+}
+
+/* Energy and security */
+.bar {
+  height: 6px;
+  border-radius: 6px;
+  background: var(--gr);
+  overflow: hidden;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--c3);
+  transition: width 0.8s;
+}
+.arm {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 9px;
+  border-radius: 8px;
+  border: 1px solid var(--gr);
+  background: transparent;
+  font-size: 0.8rem;
+  margin-top: auto;
+}
+.arm[aria-pressed='true'] {
+  border-color: var(--c3);
+  box-shadow: inset 0 0 20px -6px var(--c3);
+}
