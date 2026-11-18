@@ -40,3 +40,8 @@
     height: 10px;
   }
 }
+@media (max-width: 420px) {
+  .orbs {
+    gap: 6px;
+  }
+}

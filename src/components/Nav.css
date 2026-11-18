@@ -50,4 +50,15 @@
   .nav a:not(:last-child) {
     display: none;
   }
+  .nav a {
+    margin-left: 0;
+  }
+}
+
+/* Small phones: tighten up so logo, eight orbs and the link fit on one line. */
+@media (max-width: 420px) {
+  .nav {
+    gap: 10px;
+    font-size: 0.8rem;
+  }
 }

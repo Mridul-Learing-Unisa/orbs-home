@@ -13,3 +13,10 @@
 .footer a:hover {
   color: var(--ow);
 }
+
+@media (max-width: 480px) {
+  .footer {
+    flex-wrap: wrap;
+    gap: 8px 24px;
+  }
+}

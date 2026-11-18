@@ -147,3 +147,10 @@ body.pgopen .halo {
     display: none;
   }
 }
+
+/* Touch screens: there is no pointer to follow, so the halo would sit frozen in a corner. */
+@media not all and (pointer: fine) {
+  .halo {
+    display: none;
+  }
+}

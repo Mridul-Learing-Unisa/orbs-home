@@ -6,7 +6,7 @@ import { Tile } from './Tile';
 export function LightsTile() {
   const { lights, setLight } = useHome();
   return (
-    <Tile title="Lights">
+    <Tile title="Lights" className="tile--lights">
       {LIGHT_ROOMS.map((room, k) => (
         <div className="light-row" key={room}>
           <span>{room}</span>

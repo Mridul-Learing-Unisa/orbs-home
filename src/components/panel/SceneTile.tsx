@@ -9,7 +9,7 @@ export function SceneTile() {
   const s = SCENES[scene];
 
   return (
-    <Tile title={time}>
+    <Tile title={time} className="tile--scene">
       <div className="scene-name">{s.name}</div>
       <div className="scene-line">{s.line}</div>
       <div className="scene-buttons">

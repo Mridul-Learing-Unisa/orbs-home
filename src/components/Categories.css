@@ -219,6 +219,7 @@
   .categories {
     grid-template-columns: 1fr;
     grid-template-rows: none;
+    row-gap: 24px;
   }
   .categories aside,
   .categories-main {
@@ -232,6 +233,11 @@
   .categories aside {
     overflow-x: auto;
     padding: 14px;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .categories aside::-webkit-scrollbar {
+    display: none;
   }
   .categories aside > div:last-child {
     flex-direction: row;

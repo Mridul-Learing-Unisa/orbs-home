@@ -2,6 +2,7 @@
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
+  margin: 0;
   height: 4px;
   border-radius: 4px;
   background: linear-gradient(90deg, var(--c3) var(--v, 0%), var(--gr) var(--v, 0%));
@@ -22,4 +23,21 @@
   border: 0;
   border-radius: 50%;
   background: var(--ow);
+}
+
+/* Touch screens: a bigger thumb and a taller hit area. */
+@media (pointer: coarse) {
+  .range {
+    height: 24px;
+    background:
+      linear-gradient(90deg, var(--c3) var(--v, 0%), var(--gr) var(--v, 0%)) center / 100% 4px no-repeat;
+  }
+  .range::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+  .range::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+  }
 }

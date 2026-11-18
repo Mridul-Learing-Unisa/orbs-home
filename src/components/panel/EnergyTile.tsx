@@ -7,7 +7,7 @@ export function EnergyTile() {
   const solar = SCENES[scene].solar;
 
   return (
-    <Tile title="Energy and security">
+    <Tile title="Energy and security" className="tile--energy">
       <div className="mi">
         Solar <b>{solar}</b> kW
       </div>
